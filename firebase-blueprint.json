@@ -1,0 +1,60 @@
+{
+  "collections": [
+    {
+      "name": "users",
+      "description": "User profiles",
+      "rules": [
+        { "action": "read", "condition": "request.auth != null && request.auth.uid == document" },
+        { "action": "write", "condition": "request.auth != null && request.auth.uid == document" }
+      ]
+    },
+    {
+      "name": "sales",
+      "description": "Daily sales reports",
+      "rules": [
+        { "action": "read", "condition": "request.auth != null && resource.data.userId == request.auth.uid" },
+        { "action": "write", "condition": "request.auth != null && request.resource.data.userId == request.auth.uid" }
+      ]
+    },
+    {
+      "name": "eod",
+      "description": "Store EOD entries",
+      "rules": [
+        { "action": "read", "condition": "request.auth != null && resource.data.userId == request.auth.uid" },
+        { "action": "write", "condition": "request.auth != null && request.resource.data.userId == request.auth.uid" }
+      ]
+    },
+    {
+      "name": "crm",
+      "description": "CRM complaints",
+      "rules": [
+        { "action": "read", "condition": "request.auth != null && resource.data.userId == request.auth.uid" },
+        { "action": "write", "condition": "request.auth != null && request.resource.data.userId == request.auth.uid" }
+      ]
+    },
+    {
+      "name": "attendance",
+      "description": "Attendance entries",
+      "rules": [
+        { "action": "read", "condition": "request.auth != null && resource.data.userId == request.auth.uid" },
+        { "action": "write", "condition": "request.auth != null && request.resource.data.userId == request.auth.uid" }
+      ]
+    },
+    {
+      "name": "followups",
+      "description": "Follow up tasks",
+      "rules": [
+        { "action": "read", "condition": "request.auth != null && resource.data.userId == request.auth.uid" },
+        { "action": "write", "condition": "request.auth != null && request.resource.data.userId == request.auth.uid" }
+      ]
+    },
+    {
+      "name": "images",
+      "description": "Image references",
+      "rules": [
+        { "action": "read", "condition": "request.auth != null && resource.data.userId == request.auth.uid" },
+        { "action": "write", "condition": "request.auth != null && request.resource.data.userId == request.auth.uid" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+const fs = require('fs');
+let content = fs.readFileSync('App.tsx', 'utf8');
+
+const oldAuthState = `      onAuthStateChanged(auth, async (firebaseUser) => {
+        if (firebaseUser) {
+          const storedSales = await getSalesWithoutImages();
+          setSalesData(storedSales);
+          setIsLoading(false);
+        } else {
+          logoutUser();
+          setUser(null);
+          setIsLoading(false);
+        }
+      });`;
+
+const newAuthState = `      onAuthStateChanged(auth, async (firebaseUser) => {
+        if (firebaseUser) {
+          const { getFromStore } = await import('./services/storageService');
+          const profile = await getFromStore('users', firebaseUser.uid);
+          if (profile) {
+             const fullUser = { ...profile, uid: firebaseUser.uid };
+             setUser(fullUser);
+             saveUser(fullUser);
+          }
+          const storedSales = await getSalesWithoutImages();
+          setSalesData(storedSales);
+          setIsLoading(false);
+        } else {
+          logoutUser();
+          setUser(null);
+          setIsLoading(false);
+        }
+      });`;
+
+content = content.replace(oldAuthState, newAuthState);
+fs.writeFileSync('App.tsx', content);
